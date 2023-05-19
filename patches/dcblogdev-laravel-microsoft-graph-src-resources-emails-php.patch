@@ -1,0 +1,22 @@
+--- /dev/null
++++ ../src/Resources/Emails.php
+@@ -247,14 +247,14 @@
+ 
+         $attachmentarray = [];
+         if ($attachments != null) {
+-            foreach ($attachments as $file) {
+-                $path = pathinfo($file);
++            foreach ($attachments as $attachment) {
++                $path = pathinfo($attachment['filepath']);
+ 
+                 $attachmentarray[] = [
+                     '@odata.type'  => '#microsoft.graph.fileAttachment',
+-                    'name'         => $path['basename'],
+-                    'contentType'  => mime_content_type($file),
+-                    'contentBytes' => base64_encode(file_get_contents($file)),
++                    'name'         => $attachment['name'],
++                    'contentType'  => mime_content_type($attachment['filepath']),
++                    'contentBytes' => base64_encode(file_get_contents($attachment['filepath'])),
+                 ];
+             }
+         }

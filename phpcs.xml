@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<ruleset name="RPEQ">
+    <description>Coding Standard</description>
+
+    <exclude-pattern>*/bootstrap/*</exclude-pattern>
+    <exclude-pattern>*/config/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/patches/*</exclude-pattern>
+    <exclude-pattern>*/public/*</exclude-pattern>
+    <exclude-pattern>*/resources/*</exclude-pattern>
+    <exclude-pattern>*/storage/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <arg name="extensions" value="php" />
+
+    <!-- BASE RULES -->
+
+    <rule ref="PSR12">
+        <exclude-pattern>*\.xml$</exclude-pattern>
+    </rule>
+
+    <rule ref="Generic.Formatting.SpaceAfterCast">
+        <exclude-pattern>*\.xml$</exclude-pattern>
+    </rule>
+
+    <rule ref="Generic.PHP.RequireStrictTypes">
+        <exclude-pattern>*\.xml$</exclude-pattern>
+    </rule>
+
+    <rule ref="Squiz.PHP.EmbeddedPhp">
+        <exclude-pattern>*\.xml$</exclude-pattern>
+    </rule>
+
+    <rule ref="Squiz.Strings.DoubleQuoteUsage">
+        <exclude-pattern>*\.xml$</exclude-pattern>
+    </rule>
+
+    <!-- SLEVOMAT RULES -->
+    <!-- https://github.com/slevomat/coding-standard/blob/master/README.md#sniffs-included-in-this-standard -->
+
+    <!-- Functional rules -->
+
+    <!-- <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
+        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation" />
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation" />
+    </rule> -->
+
+    <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint" />
+
+    <rule ref="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation" />
+
+    <rule ref="SlevomatCodingStandard.Classes.ClassStructure" />
+    <rule ref="SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants" />
+    <rule ref="SlevomatCodingStandard.Classes.UselessLateStaticBinding" />
+
+    <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition" />
+    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowContinueWithoutIntegerOperandInSwitch" />
+    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowEmpty" />
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator" />
+
+    <rule ref="SlevomatCodingStandard.Functions.StrictCall" />
+    <rule ref="SlevomatCodingStandard.Functions.StaticClosure" />
+
+    <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators" />
+    <rule ref="SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator" />
+    <rule ref="SlevomatCodingStandard.Operators.RequireOnlyStandaloneIncrementAndDecrementOperators" />
+
+    <!-- Cleaning rules -->
+
+    <rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure" />
+    <rule ref="SlevomatCodingStandard.Functions.UnusedParameter" />
+    <rule ref="SlevomatCodingStandard.Functions.UselessParameterDefaultValue" />
+
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses" />
+    <rule ref="SlevomatCodingStandard.Namespaces.UselessAlias" />
+
+    <rule ref="SlevomatCodingStandard.PHP.ForbiddenClasses.ForbiddenParentClass">
+        <message>Usage of AbstractHelper as a parent class is discouraged. Prefer models for domain logic and inject the dependencies you need.</message>
+    </rule>
+    <rule ref="SlevomatCodingStandard.PHP.OptimizedFunctionsWithoutUnpacking">
+        <type>warning</type>
+    </rule>
+    <rule ref="SlevomatCodingStandard.PHP.UselessParentheses">
+        <properties>
+            <property name="ignoreComplexTernaryConditions" value="true" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon" />
+
+    <rule ref="SlevomatCodingStandard.Variables.DuplicateAssignmentToVariable" />
+    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable" />
+    <rule ref="SlevomatCodingStandard.Variables.UselessVariable" />
+
+    <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch" />
+
+    <!-- Formatting rules -->
+
+    <rule ref="SlevomatCodingStandard.Arrays.MultiLineArrayEndBracketPlacement" />
+    <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace" />
+    <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma" />
+
+    <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility" />
+    <rule ref="SlevomatCodingStandard.Classes.ClassMemberSpacing" />
+    <rule ref="SlevomatCodingStandard.Classes.ConstantSpacing" />
+    <rule ref="SlevomatCodingStandard.Classes.DisallowMultiConstantDefinition" />
+    <rule ref="SlevomatCodingStandard.Classes.DisallowMultiPropertyDefinition" />
+    <rule ref="SlevomatCodingStandard.Classes.MethodSpacing" />
+    <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference" />
+    <rule ref="SlevomatCodingStandard.Classes.ParentCallSpacing" />
+    <rule ref="SlevomatCodingStandard.Classes.PropertySpacing" />
+    <rule ref="SlevomatCodingStandard.Classes.RequireMultiLineMethodSignature" />
+
+    <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing">
+        <properties>
+            <!-- Remove case and default -->
+            <property name="tokensToCheck" type="array">
+                <element value="T_IF" />
+                <element value="T_DO" />
+                <element value="T_WHILE" />
+                <element value="T_FOR" />
+                <element value="T_FOREACH" />
+                <element value="T_SWITCH" />
+                <element value="T_TRY" />
+            </property>
+        </properties>
+    </rule>
+    <!-- <rule ref="SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator">
+        <properties>
+            <property name="fixable" value="false" />
+        </properties>
+    </rule> -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison" />
+    <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing">
+        <properties>
+            <property name="linesCountAfterWhenLastInCaseOrDefault" value="1"/>
+            <property name="linesCountAfterWhenLastInLastCaseOrDefault" value="0"/>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.ControlStructures.LanguageConstructWithParentheses" />
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator">
+        <properties>
+            <property name="lineLengthLimit" value="120" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn" />
+
+    <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses">
+        <properties>
+            <property name="caseSensitive" value="true" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Namespaces.DisallowGroupUse" />
+    <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation" />
+    <rule ref="SlevomatCodingStandard.Namespaces.NamespaceDeclaration" />
+    <rule ref="SlevomatCodingStandard.Namespaces.NamespaceSpacing" />
+    <rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
+        <properties>
+            <property name="allowFullyQualifiedGlobalClasses" value="true" />
+            <property name="allowFullyQualifiedNameForCollidingClasses" value="true" />
+            <property name="allowFallbackGlobalFunctions" value="false" />
+            <property name="allowPartialUses" value="false" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Namespaces.RequireOneNamespaceInFile" />
+
+    <rule ref="SlevomatCodingStandard.PHP.ReferenceSpacing" />
+    <rule ref="SlevomatCodingStandard.PHP.ShortList" />
+    <rule ref="SlevomatCodingStandard.PHP.TypeCast" />
+
+    <rule ref="SlevomatCodingStandard.Operators.NegationOperatorSpacing" />
+    <rule ref="SlevomatCodingStandard.Operators.SpreadOperatorSpacing" />
+
+    <!-- <rule ref="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint">
+        <type>warning</type>
+    </rule> -->
+
+    <rule ref="SlevomatCodingStandard.TypeHints.LongTypeHints" />
+    <rule ref="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue" />
+    <rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition" />
+
+    <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces" />
+
+    <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
+        <properties>
+            <property name="annotationsGroups" type="array">
+                <element value="@param" />
+                <element value="@return,@throws" />
+            </property>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing.IncorrectAnnotationsGroup">
+        <message>The annotations groups are: @param, @return/@throws, other. There must be a blank line between each annotation group.</message>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing.IncorrectOrderOfAnnotationsGroup">
+        <message>The annotations groups are: @param, @return/@throws, other. The annotation groups must follow this order.</message>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Commenting.EmptyComment" />
+    <rule ref="SlevomatCodingStandard.Commenting.ForbiddenComments">
+        <properties>
+            <property name="forbiddenCommentPatterns" type="array">
+                <element value="/^\w+ constructor.$/" />
+            </property>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Commenting.ForbiddenComments.CommentForbidden">
+        <message>Useless documentation comment for constructor.</message>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration">
+        <properties>
+            <property name="allowAboveNonAssignment" value="true" />
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Commenting.RequireOneLinePropertyDocComment" />
+</ruleset>
+

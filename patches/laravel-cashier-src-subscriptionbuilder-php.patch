@@ -1,0 +1,11 @@
+--- /dev/null
++++ ../src/SubscriptionBuilder.php
+@@ -308,7 +308,7 @@
+             'stripe_price' => $isSinglePrice ? $firstItem->price->id : null,
+             'quantity' => $isSinglePrice ? ($firstItem->quantity ?? null) : null,
+             'trial_ends_at' => ! $this->skipTrial ? $this->trialExpires : null,
+-            'ends_at' => null,
++            'ends_at' => $stripeSubscription->current_period_end,
+         ]);
+ 
+         /** @var \Stripe\SubscriptionItem $item */

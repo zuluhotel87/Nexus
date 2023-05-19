@@ -1,0 +1,109 @@
+version: '3'
+services:
+
+    mariadb:
+        container_name: $APP_NAME-mariadb
+        image: mariadb:latest
+        restart: always
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        volumes:
+            - ./.data/mysqldata/:/var/lib/mysql
+        networks:
+            - app
+
+    nginx:
+        container_name: $APP_NAME-nginx
+        image: nginx:latest
+        restart: always
+        env_file: .env
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./:/var/www
+            - ./.docker/nginx/:/etc/nginx/conf.d/
+        networks:
+            - app
+
+    php:
+        container_name: $APP_NAME-php
+        build:
+            context: .docker/php
+            dockerfile: dockerfile
+        restart: always
+        ports:
+            - 9000:9000
+        environment:
+            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+        depends_on:
+            - mariadb
+            - nginx
+            - node
+        volumes:
+            - ./:/var/www
+            - .docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
+        networks:
+            - app
+            - mailhog
+
+    node:
+        container_name: $APP_NAME-node
+        image: node:20-alpine
+        working_dir: /var/www
+        tty: true
+        ports:
+            - 5173:5173
+        volumes:
+            - ./:/var/www
+        networks:
+            - app
+
+    redis:
+        container_name: $APP_NAME-redis
+        image: 'redis:alpine'
+        ports:
+            - '${FORWARD_REDIS_PORT:-6379}:6379'
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            retries: 3
+            timeout: 5s
+        volumes:
+            - 'redis:/data'
+        networks:
+            - app
+
+    newrelic:
+        container_name: newrelic-infra
+        image: newrelic/infrastructure:latest
+        restart: always
+        network_mode: host
+        privileged: true
+        pid: host
+        cap_add:
+            - SYS_PTRACE
+        volumes:
+            - /:/host:ro
+            - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+            NRIA_LICENSE_KEY: $NEWRELIC_LICENCE_KEY
+
+networks:
+    app:
+        driver: bridge
+    mailhog:
+        name: mailhog
+        external: true
+
+volumes:
+    data:
+        driver: local
+    redis:

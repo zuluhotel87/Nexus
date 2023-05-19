@@ -1,0 +1,11 @@
+{
+    "workbench.colorTheme": "Default Dark+",
+    "editor.accessibilitySupport": "off",
+    "trailing-spaces.logLevel": "error",
+    "trailing-spaces.trimOnSave": true,
+    "phpsab.docker.dockerEnabled": true,
+    "phpsab.docker.dockerContainer": "NEXUS-php",
+    "phpsab.docker.dockerWorkspaceRoot": "/var/www",
+    "editor.rulers": [120]
+
+}
